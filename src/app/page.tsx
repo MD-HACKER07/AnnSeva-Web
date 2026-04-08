@@ -21,7 +21,7 @@ const fadeUp = {
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.1, duration: 0.6, ease: "easeOut" },
+    transition: { delay: i * 0.1, duration: 0.6, ease: "easeOut" as const },
   }),
 };
 
@@ -93,6 +93,7 @@ export default function LandingPage() {
               justifyContent: "center",
             }}
           >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo.png" alt="AnnSeva Logo" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
           </div>
           <div>

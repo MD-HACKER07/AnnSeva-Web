@@ -71,6 +71,7 @@ export default function Sidebar() {
       {/* Logo */}
       <Link href="/" style={{ display: "flex", alignItems: "center", gap: "0.75rem", textDecoration: "none", marginBottom: "2rem" }}>
         <div style={{ width: 44, height: 44, borderRadius: 12, overflow: "hidden", border: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/logo.png" alt="AnnSeva Logo" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
         </div>
         <div>
