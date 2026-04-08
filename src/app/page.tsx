@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { motion, type Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Utensils,
   Users,
@@ -16,13 +16,14 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 
-const fadeUp: Variants = {
+const staggerContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1 } },
+};
+
+const fadeUpItem = {
   hidden: { opacity: 0, y: 30 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.1, duration: 0.6, ease: "easeOut" },
-  }),
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
 
 const stats = [
@@ -220,7 +221,7 @@ export default function LandingPage() {
 
       {/* ── Stats ── */}
       <section style={{ padding: "3rem 2rem" }}>
-        <div
+        <motion.div
           style={{
             maxWidth: 900,
             margin: "0 auto",
@@ -228,15 +229,18 @@ export default function LandingPage() {
             gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
             gap: "1.25rem",
           }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={staggerContainer}
         >
-          {stats.map((s, i) => (
+          {stats.map((s) => (
             <motion.div
               key={s.label}
-              custom={i}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              variants={fadeUp}
+              variants={fadeUpItem}
               className="stat-card"
               style={{ textAlign: "center" }}
             >
@@ -259,7 +263,7 @@ export default function LandingPage() {
               <div style={{ fontSize: "0.85rem", color: "var(--text-secondary)" }}>{s.label}</div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </section>
 
       {/* ── Features ── */}
@@ -285,15 +289,11 @@ export default function LandingPage() {
             A platform designed for efficiency, scale, and real-world impact.
           </p>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.25rem" }}>
-            {features.map((f, i) => (
+          <motion.div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.25rem" }} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
+            {features.map((f) => (
               <motion.div
                 key={f.title}
-                custom={i}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
+                variants={fadeUpItem}
                 className="card"
                 style={{ padding: "1.75rem" }}
               >
@@ -318,7 +318,7 @@ export default function LandingPage() {
                 </p>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
