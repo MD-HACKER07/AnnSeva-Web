@@ -7,51 +7,66 @@ import { motion } from "framer-motion";
 import {
   Utensils,
   Users,
-  BarChart3,
   ArrowRight,
-  Leaf,
   Heart,
   Zap,
   Shield,
+  Sparkles,
+  TrendingUp,
+  MapPin,
+  Clock,
+  CheckCircle2,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 
 const staggerContainer = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
+  visible: { transition: { staggerChildren: 0.12 } },
 };
 
 const fadeUpItem = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
 const stats = [
   { label: "Meals Saved", value: "10,000+", icon: Utensils, color: "#22c55e" },
-  { label: "Active Volunteers", value: "500+", icon: Users, color: "#f97316" },
-  { label: "Partner Restaurants", value: "200+", icon: Heart, color: "#8b5cf6" },
-  { label: "Cities Covered", value: "15+", icon: BarChart3, color: "#3b82f6" },
+  { label: "Active Volunteers", value: "500+", icon: Users, color: "#a78bfa" },
+  { label: "Restaurants", value: "200+", icon: Heart, color: "#f97316" },
+  { label: "Cities Active", value: "15+", icon: MapPin, color: "#38bdf8" },
 ];
 
 const features = [
   {
     icon: Zap,
     title: "Real-time Updates",
-    desc: "Food listings update instantly. Volunteers get notified the moment surplus food is available.",
+    desc: "Food listings update instantly. Volunteers get notified the moment surplus food becomes available near them.",
     color: "#22c55e",
+    gradient: "linear-gradient(135deg, rgba(34,197,94,0.15), rgba(34,197,94,0.03))",
+    border: "rgba(34,197,94,0.3)",
   },
   {
     icon: Shield,
     title: "Role-based Access",
-    desc: "Separate portals for restaurants, volunteers, and admins with secure Firebase Authentication.",
-    color: "#8b5cf6",
+    desc: "Secure portals for restaurants, volunteers, and admins — each with tailored dashboards and Firebase Auth.",
+    color: "#a78bfa",
+    gradient: "linear-gradient(135deg, rgba(139,92,246,0.15), rgba(139,92,246,0.03))",
+    border: "rgba(139,92,246,0.3)",
   },
   {
-    icon: Leaf,
-    title: "Zero Food Waste",
-    desc: "Our AI-assisted matching ensures every surplus meal reaches someone who needs it most.",
-    color: "#f97316",
+    icon: TrendingUp,
+    title: "Impact Analytics",
+    desc: "Track meals saved, active deliveries, and community impact with beautiful real-time analytics dashboards.",
+    color: "#38bdf8",
+    gradient: "linear-gradient(135deg, rgba(56,189,248,0.15), rgba(56,189,248,0.03))",
+    border: "rgba(56,189,248,0.3)",
   },
+];
+
+const howItWorks = [
+  { step: "01", title: "Restaurant Lists Food", desc: "Surplus food posted with quantity, expiry & location", icon: Utensils, color: "#f97316" },
+  { step: "02", title: "Volunteer Accepts", desc: "Nearest volunteer picks up the assignment instantly", icon: CheckCircle2, color: "#22c55e" },
+  { step: "03", title: "Food Delivered", desc: "Meals reach underprivileged communities within hours", icon: Heart, color: "#a78bfa" },
 ];
 
 export default function LandingPage() {
@@ -65,153 +80,68 @@ export default function LandingPage() {
   }, [user, appUser, loading, router]);
 
   return (
-    <div style={{ background: "var(--bg-primary)", minHeight: "100vh" }}>
+    <div className="landing-page">
       {/* ── Navigation ── */}
-      <nav
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "1.25rem 2rem",
-          borderBottom: "1px solid var(--border)",
-          background: "rgba(10,15,30,0.8)",
-          backdropFilter: "blur(20px)",
-          position: "sticky",
-          top: 0,
-          zIndex: 50,
-        }}
-      >
+      <nav className="landing-nav">
         <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-          <div
-            style={{
-              width: 44,
-              height: 44,
-              borderRadius: 12,
-              overflow: "hidden",
-              border: "1px solid var(--border)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
+          <div style={{ width: 44, height: 44, borderRadius: 12, overflow: "hidden", border: "1px solid rgba(255,255,255,0.08)", display: "flex", alignItems: "center", justifyContent: "center" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo.png" alt="AnnSeva Logo" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
           </div>
           <div>
-            <div style={{ fontFamily: "Space Grotesk", fontWeight: 700, fontSize: "1.25rem" }}>
-              Ann<span className="gradient-text">Seva</span>
+            <div style={{ fontFamily: "Space Grotesk", fontWeight: 800, fontSize: "1.3rem", letterSpacing: "-0.02em" }}>
+              Ann<span className="hero-gradient-text">Seva</span>
             </div>
-            <div style={{ fontSize: "0.65rem", color: "var(--text-muted)", letterSpacing: "0.1em" }}>
-              ZERO FOOD WASTE
-            </div>
+            <div style={{ fontSize: "0.6rem", color: "#475569", letterSpacing: "0.14em", fontWeight: 600 }}>ZERO FOOD WASTE</div>
           </div>
         </div>
         <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
-          <Link href="/login" className="btn btn-ghost btn-sm">
+          <Link href="/login" className="hero-cta-secondary" style={{ padding: "0.5rem 1.25rem", fontSize: "0.85rem", borderRadius: 10 }}>
             Sign In
           </Link>
-          <Link href="/signup" className="btn btn-primary btn-sm">
+          <Link href="/signup" className="hero-cta-primary" style={{ padding: "0.5rem 1.25rem", fontSize: "0.85rem", borderRadius: 10 }}>
             Get Started <ArrowRight size={14} />
           </Link>
         </div>
       </nav>
 
       {/* ── Hero ── */}
-      <section
-        style={{
-          padding: "6rem 2rem 4rem",
-          textAlign: "center",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
-        {/* Background Glows */}
-        <div
-          className="hero-glow"
-          style={{
-            background: "rgba(34,197,94,0.08)",
-            top: -200,
-            left: "50%",
-            transform: "translateX(-50%)",
-          }}
-        />
-        <div
-          className="hero-glow"
-          style={{
-            background: "rgba(139,92,246,0.06)",
-            top: 100,
-            right: -200,
-            width: 400,
-            height: 400,
-          }}
-        />
+      <section className="hero-section">
+        <div className="hero-bg-grid" />
+        <div className="hero-orb hero-orb-1" />
+        <div className="hero-orb hero-orb-2" />
+        <div className="hero-orb hero-orb-3" />
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6 }}
-          style={{ maxWidth: 800, margin: "0 auto", position: "relative", zIndex: 1 }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          style={{ position: "relative", zIndex: 1, maxWidth: 850, margin: "0 auto" }}
         >
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.5rem",
-              padding: "0.4rem 1rem",
-              background: "rgba(34,197,94,0.1)",
-              border: "1px solid rgba(34,197,94,0.25)",
-              borderRadius: 999,
-              marginBottom: "2rem",
-              fontSize: "0.8rem",
-              color: "#22c55e",
-              fontWeight: 600,
-            }}
-          >
-            <span
-              style={{
-                width: 6,
-                height: 6,
-                borderRadius: "50%",
-                background: "#22c55e",
-                display: "inline-block",
-              }}
-            />
-            Building a Zero Food Waste Ecosystem
+          <div className="hero-badge">
+            <span className="hero-badge-dot" />
+            Building India&apos;s Zero Food Waste Ecosystem
           </div>
 
-          <h1
-            style={{
-              fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
-              fontWeight: 900,
-              lineHeight: 1.1,
-              marginBottom: "1.5rem",
-            }}
-          >
+          <h1 className="hero-title">
             Surplus Food,{" "}
-            <span className="gradient-text">Zero Waste.</span>
+            <span className="hero-gradient-text">Zero Waste.</span>
             <br />
             Real Impact.
           </h1>
 
-          <p
-            style={{
-              fontSize: "1.15rem",
-              color: "var(--text-secondary)",
-              maxWidth: 560,
-              margin: "0 auto 2.5rem",
-              lineHeight: 1.7,
-            }}
-          >
-            AnnSeva connects restaurants with surplus food to volunteers who deliver
-            it to underprivileged communities — in real time.
+          <p className="hero-subtitle">
+            AnnSeva connects restaurants with surplus food to volunteers who
+            deliver it to underprivileged communities —{" "}
+            <strong style={{ color: "#c8d5e6" }}>in real time.</strong>
           </p>
 
-          <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
-            <Link href="/signup" className="btn btn-primary btn-lg pulse-glow">
+          <div className="hero-cta-group">
+            <Link href="/signup" className="hero-cta-primary">
               <Utensils size={18} />
               Register as Restaurant
             </Link>
-            <Link href="/signup" className="btn btn-secondary btn-lg">
+            <Link href="/signup" className="hero-cta-secondary">
               <Users size={18} />
               Join as Volunteer
             </Link>
@@ -220,102 +150,113 @@ export default function LandingPage() {
       </section>
 
       {/* ── Stats ── */}
-      <section style={{ padding: "3rem 2rem" }}>
+      <section className="stats-section">
         <motion.div
-          style={{
-            maxWidth: 900,
-            margin: "0 auto",
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-            gap: "1.25rem",
-          }}
+          className="stats-grid"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={staggerContainer}
         >
           {stats.map((s) => (
-            <motion.div
-              key={s.label}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUpItem}
-              className="stat-card"
-              style={{ textAlign: "center" }}
-            >
+            <motion.div key={s.label} variants={fadeUpItem} className="stat-item">
               <div
-                style={{
-                  width: 48,
-                  height: 48,
-                  borderRadius: 12,
-                  background: `${s.color}18`,
-                  border: `1px solid ${s.color}30`,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  margin: "0 auto",
-                }}
+                className="stat-icon-wrap"
+                style={{ background: `${s.color}15`, border: `1px solid ${s.color}25` }}
               >
                 <s.icon size={22} color={s.color} />
               </div>
-              <div style={{ fontSize: "2rem", fontWeight: 800, color: s.color }}>{s.value}</div>
-              <div style={{ fontSize: "0.85rem", color: "var(--text-secondary)" }}>{s.label}</div>
+              <div className="stat-value" style={{ color: s.color }}>{s.value}</div>
+              <div className="stat-label">{s.label}</div>
             </motion.div>
           ))}
         </motion.div>
       </section>
 
-      {/* ── Features ── */}
-      <section style={{ padding: "3rem 2rem 2rem" }}>
-        <div style={{ maxWidth: 900, margin: "0 auto" }}>
-          <h2
-            style={{
-              textAlign: "center",
-              fontSize: "clamp(1.6rem, 3vw, 2.5rem)",
-              marginBottom: "0.75rem",
-            }}
-          >
-            Why <span className="gradient-text">AnnSeva?</span>
+      {/* ── How It Works ── */}
+      <section className="features-section" style={{ paddingBottom: "2rem" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
+          <div className="section-eyebrow">
+            <Clock size={14} /> How It Works
+          </div>
+          <h2 className="section-title">
+            Three Steps to <span className="hero-gradient-text">Save Food</span>
           </h2>
-          <p
-            style={{
-              textAlign: "center",
-              color: "var(--text-secondary)",
-              marginBottom: "2.5rem",
-              fontSize: "0.95rem",
-            }}
-          >
-            A platform designed for efficiency, scale, and real-world impact.
+          <p className="section-desc">
+            From surplus to served — our streamlined process ensures no meal goes to waste.
           </p>
 
-          <motion.div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.25rem" }} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
+          <motion.div
+            style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "1.5rem", textAlign: "left" }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+          >
+            {howItWorks.map((item) => (
+              <motion.div
+                key={item.step}
+                variants={fadeUpItem}
+                style={{
+                  background: "rgba(15,22,40,0.6)",
+                  border: "1px solid rgba(255,255,255,0.06)",
+                  borderRadius: 20,
+                  padding: "2rem",
+                  position: "relative",
+                }}
+              >
+                <div style={{ fontSize: "3rem", fontWeight: 900, fontFamily: "Space Grotesk", color: `${item.color}15`, position: "absolute", top: 16, right: 20, lineHeight: 1 }}>
+                  {item.step}
+                </div>
+                <div style={{ width: 44, height: 44, borderRadius: 12, background: `${item.color}15`, border: `1px solid ${item.color}30`, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1rem" }}>
+                  <item.icon size={20} color={item.color} />
+                </div>
+                <h3 style={{ fontSize: "1.05rem", fontWeight: 700, marginBottom: "0.4rem", color: "#f1f5f9" }}>{item.title}</h3>
+                <p style={{ fontSize: "0.85rem", color: "#7b8ba6", lineHeight: 1.6 }}>{item.desc}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── Features ── */}
+      <section className="features-section">
+        <div style={{ maxWidth: 1000, margin: "0 auto", textAlign: "center" }}>
+          <div className="section-eyebrow">
+            <Sparkles size={14} /> Why AnnSeva
+          </div>
+          <h2 className="section-title">
+            Built for <span className="hero-gradient-text">Real-World Impact</span>
+          </h2>
+          <p className="section-desc">
+            A platform designed for efficiency, scale, and meaningful change.
+          </p>
+
+          <motion.div
+            className="feature-grid"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+          >
             {features.map((f) => (
               <motion.div
                 key={f.title}
                 variants={fadeUpItem}
-                className="card"
-                style={{ padding: "1.75rem" }}
+                className="feature-card"
+                style={{ textAlign: "left" }}
               >
                 <div
-                  style={{
-                    width: 48,
-                    height: 48,
-                    borderRadius: 12,
-                    background: `${f.color}15`,
-                    border: `1px solid ${f.color}25`,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginBottom: "1rem",
-                  }}
+                  style={{ content: "", position: "absolute", top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, transparent, ${f.color}, transparent)`, borderRadius: "20px 20px 0 0", opacity: 0.5 }}
+                />
+                <div
+                  className="feature-icon-wrap"
+                  style={{ background: f.gradient, border: `1px solid ${f.border}` }}
                 >
-                  <f.icon size={22} color={f.color} />
+                  <f.icon size={24} color={f.color} />
                 </div>
-                <h3 style={{ fontSize: "1.05rem", marginBottom: "0.5rem" }}>{f.title}</h3>
-                <p style={{ color: "var(--text-secondary)", fontSize: "0.875rem", lineHeight: 1.6 }}>
-                  {f.desc}
-                </p>
+                <h3 className="feature-title">{f.title}</h3>
+                <p className="feature-desc">{f.desc}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -323,33 +264,26 @@ export default function LandingPage() {
       </section>
 
       {/* ── CTA ── */}
-      <section style={{ padding: "4rem 2rem" }}>
+      <section className="cta-section">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          className="cta-box"
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          style={{
-            maxWidth: 700,
-            margin: "0 auto",
-            textAlign: "center",
-            background: "linear-gradient(135deg, rgba(34,197,94,0.08), rgba(139,92,246,0.08))",
-            border: "1px solid rgba(34,197,94,0.2)",
-            borderRadius: 24,
-            padding: "3rem 2rem",
-          }}
+          transition={{ duration: 0.6 }}
         >
-          <h2 style={{ fontSize: "clamp(1.5rem, 3vw, 2.2rem)", marginBottom: "1rem" }}>
-            Ready to make a <span className="gradient-text">difference?</span>
+          <h2 className="cta-title">
+            Ready to make a <span className="hero-gradient-text">difference?</span>
           </h2>
-          <p style={{ color: "var(--text-secondary)", marginBottom: "2rem", fontSize: "0.95rem" }}>
+          <p className="cta-desc">
             Join thousands of restaurants and volunteers already building a
-            zero-waste food ecosystem.
+            zero-waste food ecosystem across India.
           </p>
-          <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
-            <Link href="/signup" className="btn btn-primary btn-lg">
+          <div className="cta-actions">
+            <Link href="/signup" className="hero-cta-primary">
               Create Account <ArrowRight size={16} />
             </Link>
-            <Link href="/login" className="btn btn-ghost btn-lg">
+            <Link href="/login" className="hero-cta-secondary">
               Sign In
             </Link>
           </div>
@@ -357,15 +291,7 @@ export default function LandingPage() {
       </section>
 
       {/* ── Footer ── */}
-      <footer
-        style={{
-          borderTop: "1px solid var(--border)",
-          padding: "1.5rem 2rem",
-          textAlign: "center",
-          color: "var(--text-muted)",
-          fontSize: "0.8rem",
-        }}
-      >
+      <footer className="landing-footer">
         © {new Date().getFullYear()} AnnSeva · Built with ❤️ to end food waste
       </footer>
     </div>
